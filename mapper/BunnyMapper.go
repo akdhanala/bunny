@@ -20,6 +20,8 @@ func HttpRequestToResolveDestinationRequest(r *http.Request) entity.ResolveDesti
 	}
 
 	tokens := strings.Split(rawString, " ")
+
+	response.Command = tokens[0]
 	if (len(tokens) >= 2) {
 		remainingQuery := strings.Join(tokens[1:], " ")
 		encodedQuery := url.QueryEscape(remainingQuery)

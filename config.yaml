@@ -1,0 +1,8 @@
+commands:
+  - name: "Google"
+    aliases:
+      - "g"
+      - "google"
+    base_url: "https://www.google.com/"
+    query_path: "search?q="
+    resolver: "QUERY_ONLY"

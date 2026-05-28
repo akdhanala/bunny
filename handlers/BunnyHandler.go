@@ -16,8 +16,11 @@ type bunnyHandler struct{
     controller *controllers.BunnyController
 }
 
-func NewBunnyHandler() *bunnyHandler {
-    return &bunnyHandler{}
+func NewBunnyHandler(cfg *entity.BunnyConfig) *bunnyHandler {
+    controller := controllers.NewBunnyController(cfg)
+    return &bunnyHandler{
+        controller: controller,
+    }
 }
 
 func (h *bunnyHandler) RegisterRoutes(r *chi.Mux) {

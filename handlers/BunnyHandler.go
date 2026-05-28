@@ -1,9 +1,11 @@
 package handlers
 
 import (
+    "errors"
     "net/http"
 
     "github.com/akdhanala/bunny/mapper"
+    "github.com/akdhanala/bunny/entity"
     "github.com/akdhanala/bunny/controllers"
     "github.com/go-chi/chi/v5"
 
@@ -30,6 +32,12 @@ func (h *bunnyHandler) handleRedirectRequest(
     destination, err := h.controller.ResolveDestination(mappedRequest)
 
     if (err != nil) {
+        if unrecognizedError, ok := errors.AsType[*entity.CommandNotFound](err); ok {
+            w.WriteHeader(unrecognizedError.Code())
+        } else {
+            w.WriteHeader(500)
+        }
+
         w.Write([]byte(err.Error()))
         return
     }

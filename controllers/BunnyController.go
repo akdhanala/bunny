@@ -10,7 +10,7 @@ func NewBunnyController() *BunnyController {
 
 func (c *BunnyController) ResolveDestination(r entity.ResolveDestinationRequest) (string, error) {
 	if (r.Command != "g") {
-		return "", entity.CommandNotFound{
+		return "", &entity.CommandNotFound{
 			Command: r.Command,
 		}
 	}

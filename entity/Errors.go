@@ -11,3 +11,7 @@ type CommandNotFound struct {
 func (e CommandNotFound) Error() string {
 	return fmt.Sprintf("Command (%s) not recognized", e.Command)
 }
+
+func (e CommandNotFound) Code() int {
+	return 404
+}

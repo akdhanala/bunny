@@ -3,8 +3,10 @@ package handlers
 import (
     "net/http"
 
+    "github.com/akdhanala/bunny/mapper"
     "github.com/akdhanala/bunny/controllers"
     "github.com/go-chi/chi/v5"
+
 )
 
 
@@ -24,6 +26,7 @@ func (h *bunnyHandler) handleRedirectRequest(
     w http.ResponseWriter, 
     r *http.Request,
 ) {
-    destination := h.controller.ResolveDestination()
+    mappedRequest := mapper.HttpRequestToResolveDestinationRequest(r)
+    destination := h.controller.ResolveDestination(mappedRequest)
     http.Redirect(w, r, destination, http.StatusFound)
 }

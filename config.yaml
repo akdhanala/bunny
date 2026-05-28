@@ -6,3 +6,23 @@ commands:
     base_url: "https://www.google.com/"
     query_path: "search?q="
     resolver: "QUERY_ONLY"
+  - name: "Reddit"
+    aliases:
+      - "r"
+      - "reddit"
+    base_url: "https://www.reddit.com/"
+    query_path: "search?q="
+    resolver: "QUERY_ONLY"
+  - name: "YouTube"
+    aliases:
+      - "yt"
+      - "youtube"
+    base_url: "https://www.youtube.com/"
+    query_path: "results?search_query="
+    resolver: "QUERY_ONLY"
+  - name: "LinkedIn"
+    aliases:
+      - "linkedin"
+    base_url: "https://www.linkedin.com/"
+    query_path: "search/results/all/?keywords="
+    resolver: "QUERY_ONLY"

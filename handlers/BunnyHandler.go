@@ -27,6 +27,12 @@ func (h *bunnyHandler) handleRedirectRequest(
     r *http.Request,
 ) {
     mappedRequest := mapper.HttpRequestToResolveDestinationRequest(r)
-    destination := h.controller.ResolveDestination(mappedRequest)
+    destination, err := h.controller.ResolveDestination(mappedRequest)
+
+    if (err != nil) {
+        w.Write([]byte(err.Error()))
+        return
+    }
+
     http.Redirect(w, r, destination, http.StatusFound)
 }

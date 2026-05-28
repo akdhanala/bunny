@@ -36,5 +36,10 @@ func main() {
         handler.RegisterRoutes(r)
     }
 
-    http.ListenAndServe(":8080", r)
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+
+    http.ListenAndServe(":" + port, r)
 }

@@ -1,0 +1,6 @@
+.git
+infra/
+.terraform/
+terraform.tfstate*
+README.md
+LICENSE

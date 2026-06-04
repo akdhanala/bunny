@@ -2,8 +2,30 @@
 
 I miss this darn thing, this project is mostly borne out of my own fascination with this useful tool, a want to build, and see what I can unlock using it in my personal life. Time is money and I do see this being a time-saving, albeit probably miniscule, tool. If you're still wondering what the h--- bunny is, just know it's an awesome redirection tool that you can find out more about at this great [blog post](https://developers.facebook.com/blog/post/2020/06/03/build-smart-bookmarking-tool-rust-rocket/).  
 
-## We're still under construction... 🛠️
-I'm still building here so whatever you read beyond this point will be just me spitballing as I figure out how I want to go about this. In all honesty, in a world post-Claude, I'm taking this the "vanilla" route to ensure my gears are well oiled.
+## Pre-requisites
+I only have this for MacOS, but I'm sure copy+pasting this into your LLM of choice will get you translated instructions for your dev env's architecture.
+```
+brew install docker docker-compose colima go
+```
+
+## How to deploy
+
+### Local
+```
+go run main.go
+```
+
+### Build and tag 
+This is specifically for MacOS + AWS. I spun up a ECR repo to dump images into and a simple bash script in `./build_and_publish.sh` that handles all the build and push logic. Shifting to linux / windows is a bit easier here, you just need to replace `colima` with whatever can start a Docker daemon for your system arch. 
+
+```
+colima start
+cd /PATH/TO/REPO
+./build_and_deploy.sh -a <account_id>
+```
+
+## Under the hood + ramblings 
+As I was building this, I used my README as a dumping ground. It's really just me spitballing as I was figuring out how I wanted to go about this. In all honesty, in a world post-Claude, I took this the mostly "vanilla" route to ensure my gears are well oiled.
 
 For those keeping track of this live, or the smaller few who might be lurking in the commit history, know that I'm opting for a Go webserver. You might think there's a good, well-calculated reason for this. Nope. I think I'm just leaning towards nostalgia here given my past experience in Go at Uber. Ironic because in my time there, I've been let known that Go is a **horrible** language by some brilliant minds. I don't have the linked blog post from then but I'm sure a quick Google search will yield a plethora of complaints about how there are languages with leagues better type systems *cough cough Rust*.
 

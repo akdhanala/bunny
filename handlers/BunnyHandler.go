@@ -24,7 +24,7 @@ func NewBunnyHandler(cfg *entity.BunnyConfig) *bunnyHandler {
 }
 
 func (h *bunnyHandler) RegisterRoutes(r *chi.Mux) {
-    r.Get("/bunny", h.handleRedirectRequest)
+    r.Get("/search", h.handleRedirectRequest)
 }
 
 func (h *bunnyHandler) handleRedirectRequest(

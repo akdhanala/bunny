@@ -1,25 +1,31 @@
 # Bunny Search
 
-I miss this darn thing, this project is mostly borne out of my own fascination with this useful tool, a want to build, and see what I can unlock using it in my personal life. Time is money and I do see this being a time-saving, albeit probably miniscule, tool. If you're still wondering what the h--- bunny is, just know it's an awesome redirection tool that you can find out more about at this great [blog post](https://developers.facebook.com/blog/post/2020/06/03/build-smart-bookmarking-tool-rust-rocket/).  
+I miss this darn thing, this project is mostly borne out of my own fascination with this useful tool, a want to build, and see what I can unlock using it in my personal life. Time is money and I do see this being a time-saving, albeit probably miniscule, tool. If you're still wondering what the h*** bunny is, just know it's an awesome redirection tool that you can find out more about at this great [blog post](https://developers.facebook.com/blog/post/2020/06/03/build-smart-bookmarking-tool-rust-rocket/).  
 
 ## Pre-requisites
 I only have this for MacOS, but I'm sure copy+pasting this into your LLM of choice will get you translated instructions for your dev env's architecture.
 ```
 brew install docker docker-compose colima go
+brew services start colima
 ```
 
 ## How to deploy
+I recommend starting this up locally as a daemon on system boot. It's not resource intensive so having it on your machine is leagues better than paying for a remote VM. 
 
 ### Local
 ```
-go run main.go
+docker build -t bunny .
+docker run -d \        
+--name bunny \
+--restart unless-stopped \
+-p 127.0.0.1:8080:8080 \
+bunny
 ```
 
 ### Build and tag 
 This is specifically for MacOS + AWS. I spun up a ECR repo to dump images into and a simple bash script in `./build_and_publish.sh` that handles all the build and push logic. Shifting to linux / windows is a bit easier here, you just need to replace `colima` with whatever can start a Docker daemon for your system arch. 
 
 ```
-colima start
 cd /PATH/TO/REPO
 ./build_and_deploy.sh -a <account_id>
 ```
@@ -37,4 +43,4 @@ The question then becomes, how do we do this? Nevermind whatever you expect from
 
 I'm not going to explain all the nitty gritty details of the business logic, not that there's much explaining to do in the first place. I am, however, going to call out the YAML I've added. At Meta, Bunny can be configured with any number of redirects to any number of tools or websites. Part of being a company that's however old Meta is having a "do it yourself" mentality. In Meta's, then Facebook's, early days, the developer ecosystem looked vastly different, if not barren. There's a reason why the Meta's and the Google's have their own versions of broadly used tech today: it's because it simply didn't exist when they first needed it and they just had to go build it. Of course, once their revenues ballooned to absurd levels, they could just afford to keep that practice going. Now with that in mind, imagine how many tools we'd have to hard-code into our application just to get bunny to "hop" to them. It's mind-blowing at Meta-scale, not so much on my personal setup. However, I still went with the YAML approach to make this config driven instead. Yet another learning from Uber :)
 
-At this point, I'm largely done, I do think there's more I can do with the resolver (like maybe username search with social media), but that can come after I deploy this thing to the cloud and get this rolling!
+At this point, I'm largely done, I do think there's more I can do with the resolver (like maybe username search with social media).
